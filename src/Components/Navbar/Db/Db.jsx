@@ -12,14 +12,19 @@ const Db = () => {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
   const [editedProduct, setEditedProduct] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const itemsPerPage = 10;
 
   const getApi = async () => {
     try {
+      setLoading(true);
       const { data } = await axios.get("https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json");
       setProducts(data);
+      setLoading(false);
     } catch (e) {
-      console.error(e);
+      setError('Failed to fetch data');
+      setLoading(false);
     }
   };
 
@@ -41,8 +46,12 @@ const Db = () => {
   };
 
   const handleEditSubmit = () => {
-    setProducts(products.map(product => (product.id === editedProduct.id ? editedProduct : product)));
-    setEditingProduct(null);
+    if (editedProduct.name && editedProduct.email && editedProduct.role) {
+      setProducts(products.map(product => (product.id === editedProduct.id ? editedProduct : product)));
+      setEditingProduct(null);
+    } else {
+      alert('All fields are required');
+    }
   };
 
   const handleDelete = (product) => {
@@ -89,6 +98,14 @@ const Db = () => {
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(filteredProducts.length / itemsPerPage); i++) {
     pageNumbers.push(i);
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
   }
 
   return (
