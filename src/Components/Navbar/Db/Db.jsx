@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import Navbar from '../../Navbar/Navbar'; // Adjusted the import path
+import Navbar from '../../Navbar/Navbar'; // Adjust the import path as needed
 import './Db.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenSquare, faTrash, faAngleLeft, faAngleRight, faAnglesRight, faAnglesLeft } from '@fortawesome/free-solid-svg-icons';
@@ -16,20 +16,21 @@ const Db = () => {
   const [error, setError] = useState(null);
   const itemsPerPage = 10;
 
-  const getApi = async () => {
+  // Function to fetch data from the API
+  const fetchProducts = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get("https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json");
+      const { data } = await axios.get('https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json');
       setProducts(data);
       setLoading(false);
-    } catch (e) {
-      setError('Failed to fetch data');
+    } catch (error) {
+      setError('Error fetching data');
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    getApi();
+    fetchProducts();
   }, []);
 
   const handleEdit = (product) => {
@@ -37,17 +38,21 @@ const Db = () => {
     setEditedProduct(product);
   };
 
-  const handleEditChange = (e) => {
-    const { name, value } = e.target;
-    setEditedProduct({
-      ...editedProduct,
+  const handleEditChange = (event) => {
+    const { name, value } = event.target;
+    setEditedProduct((prevProduct) => ({
+      ...prevProduct,
       [name]: value,
-    });
+    }));
   };
 
   const handleEditSubmit = () => {
     if (editedProduct.name && editedProduct.email && editedProduct.role) {
-      setProducts(products.map(product => (product.id === editedProduct.id ? editedProduct : product)));
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
+          product.id === editedProduct.id ? editedProduct : product
+        )
+      );
       setEditingProduct(null);
     } else {
       alert('All fields are required');
@@ -55,8 +60,7 @@ const Db = () => {
   };
 
   const handleDelete = (product) => {
-    const newProducts = products.filter(p => p.id !== product.id);
-    setProducts(newProducts);
+    setProducts((prevProducts) => prevProducts.filter((p) => p.id !== product.id));
   };
 
   const handlePageChange = (pageNumber) => {
@@ -64,28 +68,29 @@ const Db = () => {
   };
 
   const handleSelectProduct = (productId) => {
-    if (selectedProducts.includes(productId)) {
-      setSelectedProducts(selectedProducts.filter(id => id !== productId));
-    } else {
-      setSelectedProducts([...selectedProducts, productId]);
-    }
+    setSelectedProducts((prevSelected) =>
+      prevSelected.includes(productId)
+        ? prevSelected.filter((id) => id !== productId)
+        : [...prevSelected, productId]
+    );
   };
 
   const handleSelectAll = () => {
     if (selectedProducts.length === currentProducts.length) {
       setSelectedProducts([]);
     } else {
-      setSelectedProducts(currentProducts.map(product => product.id));
+      setSelectedProducts(currentProducts.map((product) => product.id));
     }
   };
 
   const handleDeleteSelected = () => {
-    const newProducts = products.filter(product => !selectedProducts.includes(product.id));
-    setProducts(newProducts);
+    setProducts((prevProducts) =>
+      prevProducts.filter((product) => !selectedProducts.includes(product.id))
+    );
     setSelectedProducts([]);
   };
 
-  const filteredProducts = products.filter(product =>
+  const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     product.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
     product.role.toLowerCase().includes(searchTerm.toLowerCase())
@@ -95,10 +100,8 @@ const Db = () => {
   const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(filteredProducts.length / itemsPerPage); i++) {
-    pageNumbers.push(i);
-  }
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -116,10 +119,13 @@ const Db = () => {
           <thead>
             <tr>
               <th>
-                <input 
-                  type="checkbox" 
-                  checked={selectedProducts.length === currentProducts.length && currentProducts.length > 0} 
-                  onChange={handleSelectAll} 
+                <input
+                  type="checkbox"
+                  checked={
+                    selectedProducts.length === currentProducts.length &&
+                    currentProducts.length > 0
+                  }
+                  onChange={handleSelectAll}
                 />
               </th>
               <th>Name</th>
@@ -209,7 +215,7 @@ const Db = () => {
               </button>
             </>
           )}
-          {pageNumbers.map(number => (
+          {pageNumbers.map((number) => (
             <button
               key={number}
               onClick={() => handlePageChange(number)}
@@ -218,12 +224,12 @@ const Db = () => {
               {number}
             </button>
           ))}
-          {currentPage < pageNumbers.length && (
+          {currentPage < totalPages && (
             <>
               <button onClick={() => handlePageChange(currentPage + 1)}>
                 <FontAwesomeIcon icon={faAngleRight} />
               </button>
-              <button onClick={() => handlePageChange(pageNumbers.length)}>
+              <button onClick={() => handlePageChange(totalPages)}>
                 <FontAwesomeIcon icon={faAnglesRight} />
               </button>
             </>
@@ -232,6 +238,6 @@ const Db = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Db;
