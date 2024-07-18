@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import Navbar from '../../Navbar/Navbar'; // Adjust the import path as needed
+import Navbar from '../../Navbar/Navbar'; 
 import './Db.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenSquare, faTrash, faAngleLeft, faAngleRight, faAnglesRight, faAnglesLeft } from '@fortawesome/free-solid-svg-icons';
@@ -16,7 +16,6 @@ const Db = () => {
   const [error, setError] = useState(null);
   const itemsPerPage = 10;
 
-  // Function to fetch data from the API
   const fetchProducts = async () => {
     try {
       setLoading(true);
