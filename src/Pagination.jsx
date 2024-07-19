@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight, faAnglesRight, faAnglesLeft } from '@fortawesome/free-solid-svg-icons';
+import './Pagination.css';
 
 const Pagination = ({ currentPage, totalPages, handlePageChange }) => {
   const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);

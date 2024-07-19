@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import './ProductRow.css';// Ensure this file exists for ProductRow styles
 
 const ProductRow = ({
   product,
@@ -15,7 +16,7 @@ const ProductRow = ({
 }) => {
   const isEditing = editingProduct === product.id;
   return (
-    <tr key={product.id}>
+    <tr>
       <td>
         <input
           type="checkbox"

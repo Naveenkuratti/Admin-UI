@@ -1,5 +1,6 @@
 import React from 'react';
 import ProductRow from './ProductRow';
+import './ProductTable.css';// Ensure this file exists for ProductTable styles
 
 const ProductTable = ({
   products,
