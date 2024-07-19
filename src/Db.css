@@ -1,0 +1,151 @@
+/* General Styles */
+.table-container {
+  padding: 20px;
+  background-color: #f4f6f8;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+thead {
+  background-color: #343a40;
+  color: white;
+}
+
+th, td {
+  padding: 43px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 28px;
+}
+
+th:first-child, td:first-child {
+  text-align: center;
+}
+
+.checkbox {
+  margin-right: 10px;
+}
+
+.action-button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: #0056b3;
+}
+
+.task1 button {
+  font-size: 14px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.task1 button:hover {
+  background-color: #c82333;
+}
+
+/* Pagination Styles */
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination button {
+  padding: 22px;
+  margin: 0 5px;
+  border: 1px solid #ddd;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #ddd;
+}
+
+.pagination .active {
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+.pagination .active:hover {
+  background-color: #0056b3;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  th, td {
+    padding: 10px;
+    font-size: 17px;
+  }
+
+  .action-button {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+
+  .task1 button {
+    font-size: 12px;
+    padding: 8px 16px;
+  }
+
+  .pagination button {
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  th, td {
+    padding: 8px;
+    font-size: 10px;
+  }
+
+  .action-button {
+    padding: 3px 6px;
+    font-size: 10px;
+  }
+
+  .task1 button {
+    font-size: 10px;
+    padding: 6px 12px;
+  }
+
+  .pagination button {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+}

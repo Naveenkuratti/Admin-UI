@@ -7,7 +7,7 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
       <input 
         type="text" 
         className="search-input" 
-        placeholder='Search by name, email or role' 
+        placeholder="Search by name, email or role" 
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
@@ -16,3 +16,6 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
 }
 
 export default Navbar;
+
+
+
