@@ -2,7 +2,7 @@
 
 ## Project Link
 
-[Live Demo](https://main--adminui18102001.netlify.app/)                                               
+[Live Demo](https://main--adminui18102001.netlify.app/)                                                            
                                                           
 ## Project Description               
 
